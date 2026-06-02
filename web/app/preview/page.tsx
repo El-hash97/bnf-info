@@ -1,12 +1,12 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useState, Suspense } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { BNFData, emptyBNFData } from '@/lib/types'
 import { loadBNF } from '@/lib/storage'
 import BNFPreview from '@/components/BNFPreview'
 
-export default function PreviewPage() {
+function PreviewContent() {
   const router = useRouter()
   const searchParams = useSearchParams()
   const [data, setData] = useState<BNFData>(emptyBNFData())
@@ -51,5 +51,13 @@ export default function PreviewPage() {
         <BNFPreview data={data} />
       </div>
     </>
+  )
+}
+
+export default function PreviewPage() {
+  return (
+    <Suspense fallback={<div className="p-8 text-center">Loading preview...</div>}>
+      <PreviewContent />
+    </Suspense>
   )
 }
