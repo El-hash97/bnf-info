@@ -145,8 +145,18 @@ export default function BNFPreview({ data }: Props) {
             <div style={{ flex: 1, fontSize: '7px', fontWeight: 700, padding: '1px' }}>SH</div>
           </div>
           <div style={{ display: 'flex', minHeight: '12mm' }}>
-            <div style={{ flex: 1, borderRight: border, fontSize: '9px', padding: '2px' }} />
-            <div style={{ flex: 1, fontSize: '9px', padding: '2px' }} />
+            <div style={{ flex: 1, borderRight: border, padding: '1px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              {data.dph && (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img src={data.dph} alt="DpH" style={{ maxWidth: '100%', maxHeight: '12mm', objectFit: 'contain' }} />
+              )}
+            </div>
+            <div style={{ flex: 1, padding: '1px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              {data.sh && (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img src={data.sh} alt="SH" style={{ maxWidth: '100%', maxHeight: '12mm', objectFit: 'contain' }} />
+              )}
+            </div>
           </div>
         </div>
       </div>

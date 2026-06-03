@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { BNFData, emptyBNFData } from '@/lib/types'
 import { loadBNF, saveBNF, clearBNF } from '@/lib/storage'
+import SignaturePad from './SignaturePad'
 
 const inputClass = 'w-full border border-gray-300 rounded-lg px-3 py-2 text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white'
 const labelClass = 'block text-xs font-semibold text-gray-500 mb-1 uppercase tracking-wide'
@@ -22,6 +23,10 @@ export default function BNFForm() {
   const set = (field: keyof BNFData) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const value = e.target.type === 'checkbox' ? (e.target as HTMLInputElement).checked : e.target.value
     setData(prev => ({ ...prev, [field]: value }))
+  }
+
+  const setSig = (field: 'dph' | 'sh') => (dataUrl: string) => {
+    setData(prev => ({ ...prev, [field]: dataUrl }))
   }
 
   const handleSave = () => {
@@ -238,6 +243,15 @@ export default function BNFForm() {
             {data.c7 && (
               <input type="text" className={inputClass} value={data.c7Text} onChange={set('c7Text')} placeholder="Keterangan lain-lain..." />
             )}
+          </div>
+        </div>
+
+        {/* Tanda Tangan */}
+        <div className={sectionClass}>
+          <p className={sectionTitle}>Tanda Tangan</p>
+          <div className="grid grid-cols-2 gap-3">
+            <SignaturePad label="DpH" value={data.dph} onChange={setSig('dph')} />
+            <SignaturePad label="SH" value={data.sh} onChange={setSig('sh')} />
           </div>
         </div>
       </div>
