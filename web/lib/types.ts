@@ -2,8 +2,7 @@ export interface BNFData {
   tanggal: string
   area: string
   line: string
-  dph: string
-  sh: string
+  sh: 'joko' | 'widodo' | ''
 
   kategoriSafety: boolean
   kategoriKualitas: boolean
@@ -48,7 +47,6 @@ export const emptyBNFData = (): BNFData => ({
   tanggal: '',
   area: '',
   line: '',
-  dph: '',
   sh: '',
   kategoriSafety: false,
   kategoriKualitas: false,

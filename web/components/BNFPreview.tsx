@@ -146,15 +146,18 @@ export default function BNFPreview({ data }: Props) {
           </div>
           <div style={{ display: 'flex', minHeight: '12mm' }}>
             <div style={{ flex: 1, borderRight: border, padding: '1px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-              {data.dph && (
-                // eslint-disable-next-line @next/next/no-img-element
-                <img src={data.dph} alt="DpH" style={{ maxWidth: '100%', maxHeight: '12mm', objectFit: 'contain' }} />
-              )}
+              {/* DpH selalu Aldino — fixed */}
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src="/signature/sig-aldino.jpeg" alt="DpH Aldino" style={{ maxWidth: '100%', maxHeight: '11mm', objectFit: 'contain' }} />
             </div>
             <div style={{ flex: 1, padding: '1px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
               {data.sh && (
                 // eslint-disable-next-line @next/next/no-img-element
-                <img src={data.sh} alt="SH" style={{ maxWidth: '100%', maxHeight: '12mm', objectFit: 'contain' }} />
+                <img
+                  src={data.sh === 'joko' ? '/signature/sig-joko.jpeg' : '/signature/sig-widodo.jpeg'}
+                  alt="SH"
+                  style={{ maxWidth: '100%', maxHeight: '11mm', objectFit: 'contain' }}
+                />
               )}
             </div>
           </div>

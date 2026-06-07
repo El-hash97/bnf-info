@@ -4,7 +4,6 @@ import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { BNFData, emptyBNFData } from '@/lib/types'
 import { loadBNF, saveBNF, clearBNF } from '@/lib/storage'
-import SignaturePad from './SignaturePad'
 
 const inputClass = 'w-full border border-gray-300 rounded-lg px-3 py-2 text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white'
 const labelClass = 'block text-xs font-semibold text-gray-500 mb-1 uppercase tracking-wide'
@@ -23,10 +22,6 @@ export default function BNFForm() {
   const set = (field: keyof BNFData) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const value = e.target.type === 'checkbox' ? (e.target as HTMLInputElement).checked : e.target.value
     setData(prev => ({ ...prev, [field]: value }))
-  }
-
-  const setSig = (field: 'dph' | 'sh') => (dataUrl: string) => {
-    setData(prev => ({ ...prev, [field]: dataUrl }))
   }
 
   const handleSave = () => {
@@ -249,9 +244,48 @@ export default function BNFForm() {
         {/* Tanda Tangan */}
         <div className={sectionClass}>
           <p className={sectionTitle}>Tanda Tangan</p>
-          <div className="grid grid-cols-2 gap-3">
-            <SignaturePad label="DpH" value={data.dph} onChange={setSig('dph')} />
-            <SignaturePad label="SH" value={data.sh} onChange={setSig('sh')} />
+          <div className="grid grid-cols-2 gap-4">
+            {/* DpH — fixed Aldino */}
+            <div>
+              <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2">DpH</p>
+              <div className="border border-gray-200 rounded-lg bg-gray-50 flex flex-col items-center justify-center p-2" style={{ minHeight: '90px' }}>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src="/signature/sig-aldino.jpeg" alt="Tanda tangan Aldino" className="max-h-16 object-contain" />
+              </div>
+              <p className="text-xs text-center text-gray-500 mt-1">Aldino</p>
+            </div>
+
+            {/* SH — pilihan */}
+            <div>
+              <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2">SH</p>
+              <div className="space-y-2">
+                {([
+                  ['joko', 'Joko Kistanto', '/signature/sig-joko.jpeg'],
+                  ['widodo', 'Widodo Purnomo', '/signature/sig-widodo.jpeg'],
+                ] as const).map(([key, nama, src]) => (
+                  <label
+                    key={key}
+                    className={`flex flex-col items-center border rounded-lg p-2 cursor-pointer transition-colors ${
+                      data.sh === key
+                        ? 'border-blue-500 bg-blue-50'
+                        : 'border-gray-200 bg-gray-50 hover:bg-gray-100'
+                    }`}
+                  >
+                    <input
+                      type="radio"
+                      name="sh-selection"
+                      value={key}
+                      checked={data.sh === key}
+                      onChange={() => setData(prev => ({ ...prev, sh: key }))}
+                      className="accent-blue-600 mb-1"
+                    />
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img src={src} alt={nama} className="max-h-12 object-contain mb-1" />
+                    <span className="text-xs text-gray-900 text-center font-medium">{nama}</span>
+                  </label>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
       </div>
