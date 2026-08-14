@@ -23,25 +23,27 @@ function PreviewContent() {
   return (
     <>
       {/* Toolbar - hidden on print */}
-      <div className="no-print fixed top-0 left-0 right-0 bg-gray-800 text-white px-4 py-2 flex items-center justify-between z-50 shadow">
-        <button
-          onClick={() => router.push('/')}
-          className="text-sm text-gray-300 hover:text-white transition-colors"
-        >
-          ← Kembali Edit
-        </button>
-        <span className="text-sm font-semibold">Preview BNF</span>
-        <button
-          onClick={() => window.print()}
-          className="bg-blue-500 text-white text-sm px-4 py-1.5 rounded hover:bg-blue-600 transition-colors font-semibold"
-        >
-          Print / PDF
-        </button>
+      <div className="no-print fixed top-0 left-0 right-0 bg-gray-800 text-white px-4 py-2 z-50 shadow">
+        <div className="max-w-4xl mx-auto flex items-center justify-between gap-3">
+          <button
+            onClick={() => router.push('/')}
+            className="text-sm text-gray-300 hover:text-white transition-colors whitespace-nowrap"
+          >
+            ← Kembali Edit
+          </button>
+          <span className="text-sm font-semibold truncate">Preview BNF</span>
+          <button
+            onClick={() => window.print()}
+            className="bg-blue-500 text-white text-sm px-4 py-1.5 rounded hover:bg-blue-600 transition-colors font-semibold whitespace-nowrap"
+          >
+            Print / PDF
+          </button>
+        </div>
       </div>
 
       {/* Screen preview */}
-      <div className="no-print pt-12 bg-gray-300 min-h-screen flex justify-center py-6">
-        <div className="shadow-2xl">
+      <div className="no-print pt-12 bg-gray-300 min-h-screen flex justify-center py-6 px-2 sm:px-4">
+        <div className="shadow-2xl max-w-full overflow-x-auto">
           <BNFPreview data={data} />
         </div>
       </div>
